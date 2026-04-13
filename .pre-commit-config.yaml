@@ -1,0 +1,29 @@
+repos:
+  - repo: local
+    hooks:
+      - id: ruff-format
+        name: ruff format
+        entry: bash -c 'cd hello-world && for f in "$@"; do p="${f#hello-world/}"; [ -n "$p" ] && echo "$p"; done | xargs -r uv run ruff format' --
+        language: system
+        types: [python]
+        files: ^hello-world/
+        pass_filenames: true
+        require_serial: false
+
+      - id: ruff-check
+        name: ruff check
+        entry: bash -c 'cd hello-world && for f in "$@"; do p="${f#hello-world/}"; [ -n "$p" ] && echo "$p"; done | xargs -r uv run ruff check' --
+        language: system
+        types: [python]
+        files: ^hello-world/
+        pass_filenames: true
+        require_serial: false
+
+      - id: pylint
+        name: pylint
+        entry: bash -c 'cd hello-world && for f in "$@"; do p="${f#hello-world/}"; [ -n "$p" ] && echo "$p"; done | xargs -r uv run pylint' --
+        language: system
+        types: [python]
+        files: ^hello-world/
+        pass_filenames: true
+        require_serial: true
